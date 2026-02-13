@@ -1,0 +1,74 @@
+{
+  "mockup": {
+    "version": "1.0",
+    "title": "로그인 페이지",
+    "metadata": {
+      "style": "wireframe",
+      "theme": "clean",
+      "device": "desktop"
+    },
+    "layout": {
+      "type": "single-page",
+      "sections": [
+        {
+          "id": "header",
+          "type": "header",
+          "components": [
+            {
+              "type": "navbar",
+              "items": [
+                { "type": "link", "label": "홈", "href": "/" },
+                { "type": "link", "label": "소개", "href": "/about" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "main",
+          "type": "main",
+          "components": [
+            {
+              "type": "heading",
+              "level": 1,
+              "text": "로그인"
+            },
+            {
+              "type": "input",
+              "inputType": "email",
+              "label": "이메일",
+              "placeholder": "이메일을 입력하세요",
+              "required": true
+            },
+            {
+              "type": "input",
+              "inputType": "password",
+              "label": "비밀번호",
+              "placeholder": "비밀번호를 입력하세요",
+              "required": true
+            },
+            {
+              "type": "button",
+              "variant": "primary",
+              "label": "로그인",
+              "onClick": "handleLogin"
+            },
+            {
+              "type": "paragraph",
+              "text": "계정이 없으신가요? 회원가입"
+            }
+          ]
+        },
+        {
+          "id": "footer",
+          "type": "footer",
+          "components": [
+            {
+              "type": "paragraph",
+              "text": "© 2025 Araseo. All rights reserved."
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
