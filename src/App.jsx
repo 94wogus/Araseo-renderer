@@ -12,18 +12,20 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Load demo JSON file
-    // TODO: Make this configurable (file picker or URL param)
+    // Get filename from URL param or use default
+    const urlParams = new URLSearchParams(window.location.search);
+    const filename = urlParams.get('file') || 'demo-login-flow.json';
+
     const loadJSON = () => {
-      fetch('/examples/demo-login-flow.json?' + Date.now()) // Cache bust
+      fetch(`/examples/${filename}?` + Date.now()) // Cache bust
         .then(r => {
-          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          if (!r.ok) throw new Error(`HTTP ${r.status}: ${filename}`);
           return r.json();
         })
         .then(data => {
           setJsonData(data);
           setLoading(false);
-          console.log('[Araseo] JSON loaded:', new Date().toISOString());
+          console.log('[Araseo] JSON loaded:', filename, new Date().toISOString());
         })
         .catch(err => {
           setError(err.message);
