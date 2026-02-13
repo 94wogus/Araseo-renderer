@@ -14,19 +14,32 @@ function App() {
   useEffect(() => {
     // Load demo JSON file
     // TODO: Make this configurable (file picker or URL param)
-    fetch('/examples/demo-login-flow.json')
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then(data => {
-        setJsonData(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
+    const loadJSON = () => {
+      fetch('/examples/demo-login-flow.json?' + Date.now()) // Cache bust
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
+        .then(data => {
+          setJsonData(data);
+          setLoading(false);
+          console.log('[Araseo] JSON loaded:', new Date().toISOString());
+        })
+        .catch(err => {
+          setError(err.message);
+          setLoading(false);
+        });
+    };
+
+    loadJSON();
+
+    // Vite HMR: Auto-reload when JSON files change
+    if (import.meta.hot) {
+      import.meta.hot.on('vite:beforeUpdate', () => {
+        console.log('[Araseo] Detecting file change, reloading JSON...');
+        loadJSON();
       });
+    }
   }, [setJsonData]);
 
   if (loading) {
