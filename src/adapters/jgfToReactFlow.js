@@ -40,7 +40,14 @@ export function jgfToReactFlow(jgfData) {
 }
 
 function getNodeType(shape) {
-  // Map JGF shapes to React Flow node types
-  // For now, use 'default' and style with CSS
-  return 'default';
+  // Map JGF shapes to React Flow custom node types
+  const shapeMap = {
+    oval: 'oval',              // Start/End points
+    rectangle: 'rectangle',     // Process steps
+    diamond: 'diamond',         // Decision points
+    parallelogram: 'rectangle', // Input/Output (fallback to rectangle)
+    cylinder: 'rectangle',      // Database (fallback to rectangle)
+  };
+
+  return shapeMap[shape] || 'rectangle'; // Default to rectangle if shape unknown
 }
